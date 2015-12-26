@@ -9,7 +9,7 @@ Webhook" in Mattermost (Account Settings, Integrations, Incoming Webhooks),
 then you need to add the following to your Trac configuration file:
 
     [components]
-    trac_mattermost.ticketnotifications = enabled
+    trac_mattermost.ticket_notifications.* = enabled
 
     [mattermost]
     username = Trac

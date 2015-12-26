@@ -31,7 +31,7 @@ class TicketNotifications(Component):
 
     def format_ticket(self, ticket):
         return (
-            "[#{ticket_id}. {summary}]({link})"
+            u"[#{ticket_id}. {summary}]({link})"
             .format(
                 ticket_id=ticket.id,
                 link=self.env.abs_href.ticket(ticket.id),
@@ -50,24 +50,24 @@ class TicketNotifications(Component):
                 continue
 
             if not v:
-                f = "* **{}** set to _{}_".format(field_labels[k], ticket[k])
+                f = u"* **{}** set to _{}_".format(field_labels[k], ticket[k])
             elif not ticket[k]:
-                f = "* **{}** unset".format(field_labels[k])
+                f = u"* **{}** unset".format(field_labels[k])
             else:
                 if len(v) > 100 or len(ticket[k]) > 100:
-                    f = "* **{}** changed".format(field_labels[k])
+                    f = u"* **{}** changed".format(field_labels[k])
                 else:
                     f = (
-                        "* **{}** changed from _{}_ to _{}_"
+                        u"* **{}** changed from _{}_ to _{}_"
                         .format(field_labels[k], v, ticket[k])
                     )
             formatted.append(f)
 
-        return "\n".join(formatted)
+        return u"\n".join(formatted)
 
     def ticket_created(self, ticket):
         text = (
-            "New ticket: {ticket} by @{username}"
+            u"New ticket: {ticket} by @{username}"
         ).format(
             ticket=self.format_ticket(ticket),
             username=ticket["reporter"],
@@ -81,13 +81,13 @@ class TicketNotifications(Component):
 
         if old_values:
             fmt = (
-                "@{username} changed {ticket}:\n"
+                u"@{username} changed {ticket}:\n"
                 "{changes}\n\n"
                 "{comment}"
             )
         else:
             fmt = (
-                "@{username} commented on {ticket}:\n"
+                u"@{username} commented on {ticket}:\n"
                 "{comment}"
             )
 
