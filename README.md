@@ -16,3 +16,8 @@ then you need to add the following to your Trac configuration file:
     webhook_url = https://mattermost.example.com/hooks/q9w8jq9wdw89sd7agf7sq7qweh
     icon_url = https://s3.amazonaws.com/truveris-mattermost-icons/trac.png
 
+## Installation
+Build an .egg file and drop it in the plugins directory of your Trac
+installation:
+
+    python setup.py bdist_egg
