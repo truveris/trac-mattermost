@@ -1,0 +1,8 @@
+MANIFEST
+build/
+TracMattermost.egg-info/
+*.pyc
+*.swp
+*.egg
+venv/
+dist
