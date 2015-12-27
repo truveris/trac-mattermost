@@ -1,6 +1,8 @@
 # Copyright (c) 2015-2016 Truveris, Inc. All Rights Reserved.
 # See included LICENSE file.
 
+import json
+
 from trac.core import Component, implements
 from trac.config import Option
 from trac.ticket.api import ITicketChangeListener, TicketSystem
@@ -73,7 +75,10 @@ class TicketNotifications(Component):
             username=ticket["reporter"],
         )
 
-        requests.post(self.webhook_url, json=self.get_payload(text))
+        headers = {"Content-type": "application/json", "Accept": "text/plain"}
+
+        requests.post(self.webhook_url, headers=headers,
+                      data=json.dumps(self.get_payload(text)))
 
     def ticket_changed(self, ticket, comment, author, old_values):
         if len(comment) > 100:
