@@ -1,6 +1,6 @@
 MANIFEST
 build/
-TracMattermost.egg-info/
+trac_mattermost.egg-info/
 *.pyc
 *.swp
 *.egg
