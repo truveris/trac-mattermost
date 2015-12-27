@@ -12,7 +12,7 @@ setup(
     ],
     entry_points = {
         "trac.plugins": [
-            "mattermost = trac_mattermost",
+            "trac_mattermost = trac_mattermost",
         ],
     },
 )

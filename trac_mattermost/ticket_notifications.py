@@ -1,35 +1,16 @@
 # Copyright (c) 2015-2016 Truveris, Inc. All Rights Reserved.
 # See included LICENSE file.
 
-import json
-
-from trac.core import Component, implements
-from trac.config import Option
+from trac.core import Component
+from trac.core import implements
 from trac.ticket.api import ITicketChangeListener, TicketSystem
-import requests
+
+from base import TracMattermostComponent
 
 
-
-class TicketNotifications(Component):
+class TicketNotifications(Component, TracMattermostComponent):
 
     implements(ITicketChangeListener)
-
-    webhook_url = Option("mattermost", "webhook_url",
-                         doc="Preconfigured Incoming Webhook URL")
-    icon_url = Option("mattermost", "icon_url",
-                      doc="Icon URL to be used in notifications")
-    username = Option("mattermost", "username",
-                      doc="Username displayed in notifications")
-
-    # ITicketChangeListener methods
-    def get_payload(self, text):
-        payload = {}
-        if self.icon_url:
-            payload["icon_url"] = self.icon_url
-        if self.username:
-            payload["username"] = self.username
-        payload["text"] = text
-        return payload
 
     def format_ticket(self, ticket):
         return (
@@ -75,10 +56,7 @@ class TicketNotifications(Component):
             username=ticket["reporter"],
         )
 
-        headers = {"Content-type": "application/json", "Accept": "text/plain"}
-
-        requests.post(self.webhook_url, headers=headers,
-                      data=json.dumps(self.get_payload(text)))
+        self.send_notification(text)
 
     def ticket_changed(self, ticket, comment, author, old_values):
         if len(comment) > 100:
@@ -103,4 +81,4 @@ class TicketNotifications(Component):
             changes=self.format_changes(ticket, old_values),
         ).strip()
 
-        requests.post(self.webhook_url, json=self.get_payload(text))
+        self.send_notification(text)
