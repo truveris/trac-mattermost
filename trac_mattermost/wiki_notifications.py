@@ -12,8 +12,10 @@ class WikiNotifications(Component, TracMattermostComponent):
 
     implements(IWikiChangeListener)
 
-    def format_page(self, page, version):
-        fmt = u"[{name}]({link}) v{version}"
+    def format_page(self, page, version=None):
+        fmt = u"[{name}]({link})"
+        if version:
+            fmt = fmt + " v{version}"
 
         return fmt.format(
             name=page.name,
@@ -22,7 +24,12 @@ class WikiNotifications(Component, TracMattermostComponent):
         )
 
     def wiki_page_added(self, page):
-        pass
+        fmt = u"@{author} created {page}"
+        text = fmt.format(
+            author=page.author,
+            page=self.format_page(page),
+        )
+        self.send_notification(text)
 
     def wiki_page_changed(self, page, version, t, comment, author, ipnr):
         fmt = u"@{author} edited {page}"
@@ -36,10 +43,23 @@ class WikiNotifications(Component, TracMattermostComponent):
         self.send_notification(text)
 
     def wiki_page_deleted(self, page):
-        pass
+        fmt = u"{page} was deleted"
+        text = fmt.format(
+            page=self.format_page(page),
+        )
+        self.send_notification(text)
 
     def wiki_page_version_deleted(self, page):
-        pass
+        fmt = u"a version of {page} was deleted"
+        text = fmt.format(
+            page=self.format_page(page),
+        )
+        self.send_notification(text)
 
     def wiki_page_renamed(self, page, old_name):
-        pass
+        fmt = u"{old_name} was renamed to {page}"
+        text = fmt.format(
+            old_name=old_name,
+            page=self.format_page(page),
+        )
+        self.send_notification(text)
