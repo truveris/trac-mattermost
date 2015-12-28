@@ -1,0 +1,10 @@
+Changelog
+---------
+
+0.2
+^^^
+ - Update markdown to avoid conflicts.
+
+0.1
+^^^
+Initial version, with tickets and wiki notificaitons.
