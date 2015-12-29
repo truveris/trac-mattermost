@@ -15,12 +15,16 @@ class WikiNotifications(Component, TracMattermostComponent):
     def format_page(self, page, version=None):
         fmt = u"[{name}]({link})"
         if version:
-            fmt = fmt + " v{version}"
+            fmt = fmt + " [v{version}]({difflink})"
 
         return fmt.format(
             name=page.name,
             version=version,
             link=self.env.abs_href.wiki(page.name),
+            difflink=self.env.abs_href.wiki(page.name, {
+                "action": "diff",
+                "version": version,
+            }),
         )
 
     def wiki_page_added(self, page):
