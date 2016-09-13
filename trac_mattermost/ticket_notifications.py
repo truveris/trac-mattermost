@@ -8,6 +8,24 @@ from trac.core import implements
 from trac.ticket.api import ITicketChangeListener, TicketSystem
 
 from base import TracMattermostComponent
+from utils import extract_mentions
+
+
+def format_comment(comment):
+    if not comment:
+        return ""
+
+    all_mentions = extract_mentions(comment)
+
+    if len(comment) > 100:
+        comment = comment[:97] + "..."
+        # Figure out who was left out of mentions so we can add them at
+        # the end and trigger highlights and notifications.
+        other_mentions = all_mentions - extract_mentions(comment)
+        if other_mentions:
+            comment += "\nOther mentions: {}".format(", ".join(other_mentions))
+
+    return re.sub(r"^", "> ", comment, flags=re.MULTILINE)
 
 
 class TicketNotifications(Component, TracMattermostComponent):
@@ -61,12 +79,7 @@ class TicketNotifications(Component, TracMattermostComponent):
         self.send_notification(text)
 
     def ticket_changed(self, ticket, comment, author, old_values):
-        if comment:
-            if len(comment) > 100:
-                comment = comment[:97] + "..."
-            comment = re.sub(r"^", "> ", comment, flags=re.MULTILINE)
-        else:
-            comment = ""
+        comment = format_comment(comment)
 
         if old_values:
             fmt = (

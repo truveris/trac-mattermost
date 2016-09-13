@@ -6,3 +6,4 @@ trac_mattermost.egg-info/
 *.egg
 venv/
 dist
+.coverage

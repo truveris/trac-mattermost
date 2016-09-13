@@ -1,9 +1,13 @@
 Changelog
 ---------
 
+0.3
+^^^
+- Add additional mentions even if the comment is cropped.
+
 0.2
 ^^^
- - Update markdown to avoid conflicts.
+- Update markdown to avoid conflicts.
 
 0.1
 ^^^
