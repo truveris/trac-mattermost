@@ -23,7 +23,10 @@ def format_comment(comment):
         # the end and trigger highlights and notifications.
         other_mentions = all_mentions - extract_mentions(comment)
         if other_mentions:
-            comment += "\nOther mentions: {}".format(", ".join(other_mentions))
+            comment += (
+                "\n\n**Other mentions:** {}"
+                .format(", ".join(other_mentions))
+            )
 
     return re.sub(r"^", "> ", comment, flags=re.MULTILINE)
 
