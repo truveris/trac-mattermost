@@ -1,8 +1,6 @@
 # Copyright (c) 2015-2016 Truveris, Inc. All Rights Reserved.
 # See included LICENSE file.
 
-import re
-
 from trac.core import Component
 from trac.core import implements
 from trac.ticket.api import ITicketChangeListener, TicketSystem
@@ -28,7 +26,7 @@ def format_comment(comment):
                 .format(", ".join(other_mentions))
             )
 
-    return re.sub(r"^", "> ", comment, flags=re.MULTILINE)
+    return "\n".join("> " + l for l in comment.splitlines())
 
 
 class TicketNotifications(Component, TracMattermostComponent):

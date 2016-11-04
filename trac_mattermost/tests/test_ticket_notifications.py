@@ -25,6 +25,6 @@ class TicketNotificationsTests(unittest.TestCase):
         value = value + "and @jcarmack and @bgate"
         expected = (
             "> " + value[:97] + "..." +
-            "\n> Other mentions: @jcarmack, @bgate"
+            "\n> \n> **Other mentions:** @jcarmack, @bgate"
         )
         self.assertEquals(format_comment(value), expected)
