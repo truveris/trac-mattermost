@@ -54,15 +54,15 @@ class TicketNotifications(Component, TracMattermostComponent):
                 continue
 
             if not v:
-                f = u"**{}** set to *{}*".format(field_labels[k], ticket[k])
+                f = u"**{0}** set to *{1}*".format(field_labels[k], ticket[k])
             elif not ticket[k]:
-                f = u"**{}** unset".format(field_labels[k])
+                f = u"**{0}** unset".format(field_labels[k])
             else:
                 if len(v) > 100 or len(ticket[k]) > 100:
-                    f = u"**{}** changed".format(field_labels[k])
+                    f = u"**{0}** changed".format(field_labels[k])
                 else:
                     f = (
-                        u"**{}** changed from *{}* to *{}*"
+                        u"**{0}** changed from *{1}* to *{2}*"
                         .format(field_labels[k], v, ticket[k])
                     )
             formatted.append(f)
