@@ -15,6 +15,8 @@ class TracMattermostComponent(object):
                       doc="Icon URL to be used in notifications")
     username = Option("mattermost", "username",
                       doc="Username displayed in notifications")
+    channel = Option("mattermost", "channel",
+                      doc="Channel in which notifications are displayed")
 
     def send_notification(self, text):
         payload = {}
@@ -22,6 +24,9 @@ class TracMattermostComponent(object):
             payload["icon_url"] = self.icon_url
         if self.username:
             payload["username"] = self.username
+        if self.channel:
+            payload["channel"] = self.channel
+
         payload["text"] = text
 
         headers = {"Content-type": "application/json", "Accept": "text/plain"}
