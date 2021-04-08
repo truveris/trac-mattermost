@@ -13,6 +13,7 @@ then you need to add the following to your Trac configuration file::
     [components]
     trac_mattermost.ticket_notifications.* = enabled
     trac_mattermost.wiki_notifications.* = enabled
+    trac_mattermost.repository_notifications.* = enabled
 
     [mattermost]
     username = Trac
