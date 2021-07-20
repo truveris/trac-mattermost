@@ -19,19 +19,23 @@ class RepositoryNotifications(Component, TracMattermostComponent):
     implements(IRepositoryChangeListener)
 
     def format_changeset(self, changeset):
+        if changeset.repos.reponame:
+            link = self.env.abs_href.changeset(changeset.rev, changeset.repos.reponame)
+        else:
+            link = self.env.abs_href.changeset(changeset.rev)
         return (
             u"[&#91;{rev}&#93;]({link})"
             .format(
                 rev=changeset.repos.display_rev(changeset.rev),
-                link=self.env.abs_href.changeset(changeset.rev),
+                link=link
             )
         )
 
     def changeset_added(self, repos, changeset):
-        fmt = (
-            u"@{author} committed {changeset} in {repos}:\n"
-            "{message}"
-        )
+        fmt = u"@{author} committed {changeset}"
+        if repos.reponame:
+            fmt = fmt + u" in {repos}"
+        fmt = fmt + u":\n{message}"
         text = fmt.format(
             author=changeset.author,
             changeset=self.format_changeset(changeset),
@@ -42,16 +46,12 @@ class RepositoryNotifications(Component, TracMattermostComponent):
         self.send_notification(text)
 
     def changeset_modified(self, repos, changeset, old_changeset):
-        fmt = (
-            u"@{author} modified {changeset} in {repos}:\n"
-            "{message}"
-        )
+        fmt = u"@{author} modified {changeset}"
+        if repos.reponame:
+            fmt = fmt + u" in {repos}"
+        fmt = fmt + u":\n{message}"
         if old_changeset and old_changeset.message:
-            fmt = fmt + (
-                u"\n"
-                "from\n"
-                "{old_message}"
-            )
+            fmt = fmt + u"\nfrom\n{old_message}"
         text = fmt.format(
             author=changeset.author,
             changeset=self.format_changeset(changeset),
