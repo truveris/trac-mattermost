@@ -1,3 +1,5 @@
 from ticket_notifications import TicketNotifications
 from wiki_notifications import WikiNotifications
 from repository_notifications import RepositoryNotifications
+from milestone_notifications import MilestoneNotifications
+from attachment_notifications import AttachmentNotifications
