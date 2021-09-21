@@ -49,14 +49,15 @@ class WikiNotifications(Component, TracMattermostComponent):
     def wiki_page_deleted(self, page):
         fmt = u"{page} was deleted"
         text = fmt.format(
-            page=self.format_page(page),
+            page=page.name,
         )
         self.send_notification(text)
 
     def wiki_page_version_deleted(self, page):
-        fmt = u"a version of {page} was deleted"
+        fmt = u"version {version} of {page} was deleted"
         text = fmt.format(
             page=self.format_page(page),
+            version=page.version,
         )
         self.send_notification(text)
 
@@ -65,5 +66,19 @@ class WikiNotifications(Component, TracMattermostComponent):
         text = fmt.format(
             old_name=old_name,
             page=self.format_page(page),
+        )
+        self.send_notification(text)
+
+    def wiki_page_comment_modified(self, page, old_comment):
+        fmt = (
+            u"the change comment of {page} was changed from:\n"
+            "{old_comment}\n"
+            "to:\n"
+            "{comment}"
+        )
+        text = fmt.format(
+            page=self.format_page(page, page.version),
+            comment=page.comment,
+            old_comment=old_comment,
         )
         self.send_notification(text)
