@@ -54,10 +54,9 @@ class WikiNotifications(Component, TracMattermostComponent):
         self.send_notification(text)
 
     def wiki_page_version_deleted(self, page):
-        fmt = u"version {version} of {page} was deleted"
+        fmt = u"a version of {page} was deleted"
         text = fmt.format(
             page=self.format_page(page),
-            version=page.version,
         )
         self.send_notification(text)
 
