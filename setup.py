@@ -9,7 +9,7 @@ except IOError:
     README = CHANGES = ""
 
 setup(
-    name="trac-mattermost", version="0.3.1",
+    name="trac-mattermost", version="0.4.dev",
     description="Trac notifications in Mattermost",
     long_description=README + "\n\n" + CHANGES,
     author="Truveris Inc.",

@@ -13,6 +13,9 @@ then you need to add the following to your Trac configuration file::
     [components]
     trac_mattermost.ticket_notifications.* = enabled
     trac_mattermost.wiki_notifications.* = enabled
+    trac_mattermost.repository_notifications.* = enabled
+    trac_mattermost.milestone_notifications.* = enabled
+    trac_mattermost.attachment_notifications.* = enabled
 
     [mattermost]
     username = Trac

@@ -5,7 +5,7 @@ from trac.core import Component
 from trac.core import implements
 from trac.wiki.api import IWikiChangeListener
 
-from base import TracMattermostComponent
+from trac_mattermost.base import TracMattermostComponent
 
 
 class WikiNotifications(Component, TracMattermostComponent):
@@ -35,7 +35,7 @@ class WikiNotifications(Component, TracMattermostComponent):
         )
         self.send_notification(text)
 
-    def wiki_page_changed(self, page, version, t, comment, author, ipnr):
+    def wiki_page_changed(self, page, version, t, comment, author, ipnr=None):
         fmt = u"@{author} edited {page}"
         if comment:
             fmt = fmt + ": {comment}"
@@ -49,7 +49,7 @@ class WikiNotifications(Component, TracMattermostComponent):
     def wiki_page_deleted(self, page):
         fmt = u"{page} was deleted"
         text = fmt.format(
-            page=self.format_page(page),
+            page=page.name,
         )
         self.send_notification(text)
 
@@ -65,5 +65,19 @@ class WikiNotifications(Component, TracMattermostComponent):
         text = fmt.format(
             old_name=old_name,
             page=self.format_page(page),
+        )
+        self.send_notification(text)
+
+    def wiki_page_comment_modified(self, page, old_comment):
+        fmt = (
+            u"the change comment of {page} was changed from:\n"
+            "{old_comment}\n"
+            "to:\n"
+            "{comment}"
+        )
+        text = fmt.format(
+            page=self.format_page(page, page.version),
+            comment=page.comment,
+            old_comment=old_comment,
         )
         self.send_notification(text)
