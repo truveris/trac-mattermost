@@ -5,7 +5,7 @@ from trac.core import Component
 from trac.core import implements
 from trac.ticket.api import IMilestoneChangeListener
 
-from base import TracMattermostComponent
+from trac_mattermost.base import TracMattermostComponent
 
 
 class MilestoneNotifications(Component, TracMattermostComponent):

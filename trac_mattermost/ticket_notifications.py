@@ -5,8 +5,8 @@ from trac.core import Component
 from trac.core import implements
 from trac.ticket.api import ITicketChangeListener, TicketSystem
 
-from base import TracMattermostComponent
-from utils import extract_mentions
+from trac_mattermost.base import TracMattermostComponent
+from trac_mattermost.utils import extract_mentions
 
 
 def format_comment(comment):

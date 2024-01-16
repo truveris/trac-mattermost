@@ -5,7 +5,7 @@ from trac.core import Component
 from trac.core import implements
 from trac.wiki.api import IWikiChangeListener
 
-from base import TracMattermostComponent
+from trac_mattermost.base import TracMattermostComponent
 
 
 class WikiNotifications(Component, TracMattermostComponent):

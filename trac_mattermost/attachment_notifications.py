@@ -5,7 +5,7 @@ from trac.core import Component
 from trac.core import implements
 from trac.attachment import IAttachmentChangeListener
 
-from base import TracMattermostComponent
+from trac_mattermost.base import TracMattermostComponent
 
 
 class AttachmentNotifications(Component, TracMattermostComponent):

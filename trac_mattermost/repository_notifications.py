@@ -5,7 +5,7 @@ from trac.core import Component
 from trac.core import implements
 from trac.versioncontrol.api import IRepositoryChangeListener
 
-from base import TracMattermostComponent
+from trac_mattermost.base import TracMattermostComponent
 
 
 def format_message(message):
