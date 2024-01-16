@@ -35,7 +35,7 @@ class WikiNotifications(Component, TracMattermostComponent):
         )
         self.send_notification(text)
 
-    def wiki_page_changed(self, page, version, t, comment, author, ipnr):
+    def wiki_page_changed(self, page, version, t, comment, author, ipnr=None):
         fmt = u"@{author} edited {page}"
         if comment:
             fmt = fmt + ": {comment}"
